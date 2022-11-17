@@ -22,26 +22,10 @@
       flex-wrap: wrap;
       gap: 15px;
     }
-    .favorites img {
-      width: 150px;
-    }
   </style>
   <body>
     <div id="app"></div>
-    <!-- <h1>1번째 고양이 가라사대</h1>
-    <form>
-      <input type="text" name="name" placeholder="영어 대사를 입력해주세요" />
-      <button type="submit">생성</button>
-    </form>
-    <div class="main-card">
-      <img
-        src="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react"
-        alt="고양이"
-        width="400"
-      />
-      <button>🤍</button>
-    </div>
-     -->
+
     <script
       src="https://unpkg.com/react@18/umd/react.development.js"
       crossorigin
@@ -52,26 +36,80 @@
     ></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script type="text/babel">
-      console.log("야옹");
+      const Form = () => {
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          console.log("폼 전송됨");
+        }
+        return (
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type="text"
+              name="name"
+              placeholder="영어 대사를 입력해주세요"
+            />
+            <button type="submit">생성</button>
+          </form>
+        );
+      };
 
-      const catItem = (
-        <li>
-          <img src="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react" />
-        </li>
+      const CatItem = (props) => {
+        return (
+          <li>
+            <img src={props.img} style={{ width: "150px" }} />
+          </li>
+        );
+      };
+
+      const Favorites = () => {
+        return (
+          <ul className="favorites">
+            <CatItem img="https://cataas.com/cat/BxqL2EjFmtxDkAm2/says/inflearn" />
+            <CatItem img="https://cataas.com/cat/18MD6byVC1yKGpXp/says/JavaScript" />
+          </ul>
+        );
+      };
+
+      const MainCard = ({ img, alt, width }) => {
+        function handleHeartClick() {
+          console.log("하트 눌렀음");
+        }
+        function handleHeartMouseOver() {
+          console.log("마우스 오버함");
+        }
+        return (
+          <div className="main-card">
+            <img src={img} alt={alt} width={width} />
+            <button
+              onClick={handleHeartClick}
+              onMouseOver={handleHeartMouseOver}
+            >
+              🤍
+            </button>
+          </div>
+        );
+      };
+
+      const Title = (props) => {
+        return <h1>{props.children}</h1>;
+      };
+
+      const app = (
+        <div>
+          <Title>1번째 고양이 가라사대</Title>
+          <Form />
+          <MainCard
+            img="https://cataas.com/cat/HSENVDU4ZMqy7KQ0/says/react"
+            alt="고양이"
+            width="400"
+          />
+          <Favorites />
+        </div>
       );
-      const FOO = "hello world";
-      const favorites = (
-        <ul class="favorites">
-          {1}
-          {FOO === "hello world" ? "true" : "false"}
-          {catItem}
-          {catItem}
-          {catItem}
-          // 중괄호 안에 자바스크립트 표현식 사용 가능
-        </ul>
-      );
+
       const 여기다가그려 = document.querySelector("#app");
-      ReactDOM.render(favorites, 여기다가그려);
+
+      ReactDOM.render(app, 여기다가그려);
     </script>
   </body>
 </html>

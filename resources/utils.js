@@ -22,3 +22,5 @@ const fetchCat = async (text) => {
   const responseJson = await response.json();
   return `${OPEN_API_DOMAIN}/${responseJson.url}`;
 };
+
+// .then과 await
